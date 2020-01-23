@@ -27,5 +27,8 @@ class NaiveBayes(Algorithm):
                 1 + sum([1 for e in examples if e[att] == problem[att] and e['class'] == cls]) for att in
                 problem.attributes()]), self.__classes)
 
-    def copy(self) -> 'NaiveBase':
+    def __copy__(self) -> 'NaiveBase':
         return NaiveBayes()
+
+    def __str__(self):
+        return "Naive Bayes"

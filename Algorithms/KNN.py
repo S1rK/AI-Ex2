@@ -28,5 +28,8 @@ class KNN(Algorithm):
 
             return argmax(lambda classification: class_count[classification], self.__classes)
 
-    def copy(self) -> 'KNN':
+    def __copy__(self) -> 'KNN':
         return KNN(self.__k)
+
+    def __str__(self):
+        return f"KNN: {self.__k} Nearest Neighbors"

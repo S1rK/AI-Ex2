@@ -1,10 +1,9 @@
 from Data.DataSet import DataSet
 from Data.Example import Example
 from Algorithms.Algorithms import Algorithm
-from Utilities.Utilities import argmax, count_attribute
+from Utilities.Utilities import argmax
 from Algorithms.Tree import Node
 from typing import List
-from math import log2
 
 
 class DecisionTree(Algorithm):
@@ -14,6 +13,12 @@ class DecisionTree(Algorithm):
 		self.__tree = None
 
 	def __create_tree(self, training_set: DataSet, attributes: List[str]) -> Node:
+		"""
+		A helper recursive function to create the decision tree.
+		:param training_set: the set to train by
+		:param attributes: the attributes that the current tree needs to take care of.
+		:return: a Node that represent a decision tree/subtree
+		"""
 		if 'class' in attributes:
 			attributes.remove('class')
 		# count the number of examples for each classification
@@ -53,15 +58,20 @@ class DecisionTree(Algorithm):
 	def predict(self, problem: Example) -> str:
 		return self.__tree.predict(problem)
 
-	def copy(self) -> 'DecisionTree':
+	def __copy__(self) -> 'DecisionTree':
 		return DecisionTree()
 
 	def __str__(self):
+		"""
+		:return: the tree in the format wanted.
+		"""
 		temp = str(self.__tree)
 		ret = ""
 		for line in temp.split("\n"):
+			if line is "":
+				continue
 			if line.startswith('|'):
-				ret += f"\n{line[1:]}"
+				ret += f"{line[1:]}\n"
 			else:
-				ret += f"\n{line}"
+				ret += f"{line}\n"
 		return ret
